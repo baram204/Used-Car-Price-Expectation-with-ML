@@ -14,3 +14,7 @@ Make simple used car price expectation service.
    그리고는 그것들을 플라스크 구조에 넣은 다음
 - Finally, Dockerize Flask and Mysql.
    플라스크와 Mysql 을 도커화 합니다.
+   
+## contributor
+
+[Danny (Sunghwan) ki](https://github.com/kish191919) - Data Scientist suppy machine-learning python script.
