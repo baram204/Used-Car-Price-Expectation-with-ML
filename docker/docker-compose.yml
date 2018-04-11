@@ -2,8 +2,8 @@ version: "3.3"
 
 services:
   db:
-    image: mysql:5.7
-    container_name: mysql-5.7
+    container_name: mysql
+    image: mysql
     restart: always
     ports:
       - "3306:3306"
@@ -13,23 +13,19 @@ services:
       MYSQL_PASSWORD: "0"
       MYSQL_ROOT_PASSWORD: "0"
   adminer:
+    container_name: adminer
     image: adminer
     restart: always
     ports:
       - "8889:8080"
   jupyter:
+    container_name:   notebook
     image: jupyter/datascience-notebook
-    container_name: jupyter-notebook
-    ports:
-      - "8888:8888"
-    # dockertoolbox only mount c:/Users
-    # so many hours wasted Jesus.
-    # https://github.com/docker/kitematic/issues/2738
     volumes:
-      - type: bind
-        source: "c:"
-        target: /jupyter
-#        - ../../jupyter/config:/home/gopher/.jupyter
+      - ../notebook:/home/jovyan/work
+    ports:
+      - 8888:8888
+    command: /bin/bash -c "start-notebook.sh --NotebookApp.token=''"
     links:
       - db
   flask:
@@ -44,14 +40,3 @@ services:
       - FLASK_DEBUG=1
     links:
       - db
-      - 'RUN=flask run --host=0.0.0.0 --port=80'
-    # command: flask run --host=0.0.0.0 --port=80
-    # Infinite loop, to keep it alive, for debugging
-    # command: bash -c "while true; do echo 'sleeping...' && sleep 10; done"
-
-# comment original. cause that's now working on windonws 10 environment.
-
-#    source:
-#    - type: "bind"
-#      source: ./../../examples
-#      target: /examples
