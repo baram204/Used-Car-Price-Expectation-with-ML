@@ -1,4 +1,4 @@
-# usedCarPriceExpectationWithML
+# Used-Car-Price-Expectation-with-ML
 Used car Price expectation web service made with Docker and Flask.   
 도커와 플라스크로 만든 중고차 가격 예상 서비스.
 
@@ -17,4 +17,6 @@ Make simple used car price expectation service.
    
 ## contributor
 
-[Danny (Sunghwan) ki](https://github.com/kish191919) - Data Scientist suppy machine-learning python script.
+[Danny (Sunghwan) ki](https://github.com/kish191919) - Data Scientist, supply machine-learning python script.
+
+source repo : https://github.com/kish191919/Predict_Georgia_Car_Price_by_Python
