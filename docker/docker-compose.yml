@@ -20,7 +20,10 @@ services:
       - "8889:8080"
   jupyter:
     container_name:   notebook
-    image: jupyter/datascience-notebook
+#    image: jupyter/datascience-notebook
+    build:
+      context: ./jupyter
+      dockerfile: Dockerfile
     volumes:
       - ../notebook:/home/jovyan/work
     ports:
