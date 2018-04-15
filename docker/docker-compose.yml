@@ -36,11 +36,12 @@ services:
     image: tiangolo/uwsgi-nginx-flask:python3.6
     container_name: flask_server
     volumes:
-      - ../app:/app
+      - ../flaskapp:/app
     ports:
       - "8886:80"
     environment:
       - FLASK_APP=app/main.py
       - FLASK_DEBUG=1
+      - PYTHONPATH=/app/app
     links:
       - db
