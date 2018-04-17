@@ -1,0 +1,11 @@
+--find-links=requirements
+lxml
+beautifulsoup4
+pymysql
+pandas
+xgboost
+flask-sqlalchemy
+Flask-WTF
+flask-login
+mysqlclient
+matplotlib

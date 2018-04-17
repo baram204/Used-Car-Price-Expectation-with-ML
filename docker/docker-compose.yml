@@ -33,7 +33,10 @@ services:
     links:
       - db
   flask:
-    image: tiangolo/uwsgi-nginx-flask:python3.6
+#    image: tiangolo/uwsgi-nginx-flask:python3.6
+    build:
+      context: ./flask
+      dockerfile: Dockerfile
     container_name: flask_server
     volumes:
       - ../flaskapp:/app
