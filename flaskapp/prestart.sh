@@ -1,2 +1,2 @@
 #! /usr/bin/env bash
-pip install flask_sqlalchemy
+pip install -r ./app/requirements.txt

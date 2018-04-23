@@ -1,4 +1,4 @@
-dockerimage/
+docker/dockerimage/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -57,7 +57,6 @@ coverage.xml
 local_settings.py
 
 # Flask stuff:
-instance/
 .webassets-cache
 
 # Scrapy stuff:
