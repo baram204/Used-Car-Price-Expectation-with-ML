@@ -1,4 +1,5 @@
---find-links=requirements
+--find-links=requirements\
+cython
 lxml
 beautifulsoup4
 pymysql
@@ -9,3 +10,5 @@ Flask-WTF
 flask-login
 mysqlclient
 matplotlib
+urllib3
+flask-sijax

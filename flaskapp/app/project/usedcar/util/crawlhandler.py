@@ -126,6 +126,7 @@ class CrawlHandler:
 
     def get_rows(self, startpage, endpage):
         rows = []
+        cnt = 0
         for page in range(startpage,endpage):
             url = 'https://www.cars.com/for-sale/searchresults.action/?page='+str(page)+'&perPage=100&rd=99999&searchSource=PAGINATION&showMore=true&sort=relevance&stkTypId=28881&zc=31216'
 
@@ -134,16 +135,20 @@ class CrawlHandler:
 
             specificSoup = soup.find_all('div', class_='listing-row__details')
 
-            cnt = 0
+
 
             print("===",page)
             for div in specificSoup:
                 self.setSoup(div)
                 self.setElement()
                 data = self.getData()
+
+                from .modelhandler import ModelHandler
+                md = ModelHandler()
+
                 # print(data)
                 rows.append(data)
-
+                # print(data['title'])
                 cnt +=1
         return rows
 

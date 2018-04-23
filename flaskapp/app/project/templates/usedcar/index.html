@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <title>Predict Used Car Price</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <style media="screen">
+        .container {
+            margin-top: 40px;
+        }
+        .result {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+    <div class="input row">
+        <div class="row">
+            <div class="form-group col-2">
+                <label for="brand">Brand</label>
+                <input type="text" class="form-control brand" placeholder="Enter brand" name="brand" value="kia">
+            </div>
+
+            <div class="form-group col-2">
+                <label for="model">Model</label>
+                <input type="text" class="form-control model" placeholder="Enter model" name=model value="optima">
+            </div>
+
+            <div class="form-group col-2">
+                <label for="year">Year</label>
+                <input type="text" class="form-control year" placeholder="Enter year" name=year value="2010">
+            </div>
+
+            <div class="form-group col-2">
+                <label for="miles">Miles</label>
+                <input type="text" class="form-control miles" placeholder="Enter miles" name=miles value="50000">
+            </div>
+            <hr class="mb-4">
+            <button class="form-group col-2 btn btn-primary btn-sm predict">Submit</button>
+        </div>
+
+    </div>
+    <div class="result row">
+        <h4> Extimated Price : </h4>
+        <div class="col-1">
+
+        </div>
+        <div class="col-4 alert alert-primary price_result" role="alert">  </div>
+
+    </div>
+    <div class="chart row">
+        <div id="container"></div>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('.predict').on('click', function() {
+            var brand = $('.brand').val();
+            var model = $('.model').val();
+            var year = $('.year').val();
+            var miles = $('.miles').val();
+            request = {
+                brand: brand,
+                model: model,
+                year: year,
+                miles: miles,
+            }
+            // console.log(request);
+            $.post("/usedcars/predict/", request).done(function(data) {
+                // console.log(data)
+                var result_data = []
+                var same_brand = data.same_brand
+                console.log(same_brand)
+                $(".result .alert").empty();
+                for (var i = 0; i < data.year_list.length; i++) {
+                    // console.log(data.year_list[i]);
+                    var summary = data.year_list[i] + ":" + data.price_list[i];
+                    var tag = "<p>" + summary + "</p>";
+                    // console.log(data.price)
+                    // $(".result .alert").append(data.price);
+                    result_data.push({
+                        name: data.year_list[i],
+                        y: Number(data.price_list[i])
+                    })
+                }
+                $(".result .alert").append(data.price);
+                $(".result").slideDown("slow");
+                // chart
+                drawChart(result_data);
+            })
+        });
+    });
+    function drawChart(result_data){
+        Highcharts.chart('container', {
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: 'Average model price per Year'
+            },
+            // subtitle: {
+            //     text: 'Source: <a href="http://en.wikipedia.org/wiki/List_of_cities_proper_by_population">Wikipedia</a>'
+            // },
+            xAxis: {
+                type: 'category',
+                labels: {
+                    rotation: -45,
+                    style: {
+                        fontSize: '13px',
+                        fontFamily: 'Verdana, sans-serif'
+                    }
+                }
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Averge car price'
+                }
+            },
+            legend: {
+                enabled: false
+            },
+            tooltip: {
+                pointFormat: 'Average car price: <b>{point.y:.1f} dallor</b>'
+            },
+            series: [{
+                name: 'price',
+                data: result_data,
+                dataLabels: {
+                    enabled: true,
+                    rotation: -90,
+                    color: '#FFFFFF',
+                    align: 'right',
+                    format: '{point.y:.1f}', // one decimal
+                    y: 10, // 10 pixels down from the top
+                    style: {
+                        fontSize: '13px',
+                        fontFamily: 'Verdana, sans-serif'
+                    }
+                }
+            }]
+        });
+    }
+</script>
+</body>
+
+</html>

@@ -17,7 +17,6 @@ from ..models.usedcar import UsedCar
 class ModelHandler():
     # constructor take <class 'bs4.element.Tag'>
 
-
     def testdb(self):
         try:
             UsedCar.query.all()
@@ -74,9 +73,10 @@ class ModelHandler():
             df["video"] = df["video"].astype('int')
             df["star"] = df["star"].astype('float')
             df["review_no"] = df["review_no"].astype('int')
-            df["price"] = df["price"].astype('int')
+            # df["price"] = df["price"].astype('int')
 
             df.to_sql(name="used_car", con=db.engine, if_exists='replace')
+            # df.to_sql(name="used_car", con=db.engine, if_exists='append')
             return '<h1>It works.</h1>'
         except Exception as e:
             print('데이터 삽입 오류')

@@ -1,0 +1,49 @@
+{% block searchcards %}
+    <div class="card mb-3">
+        <div class="card-header">
+            <i class="fa fa-pie-chart"></i> 원하는 지역명을 검색하세요.</div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-xl-12 col-sm-12 col-lg-12 mb-3">
+                    <div class="input-group" id="adv-search">
+                        <input type="text" class="form-control" name="apt-info-search-keyword" placeholder="지역 검색"/>
+                        <div class="input-group-btn ">
+                            <div class="btn-group" role="group">
+                                <div class="dropdown dropdown-lg">
+                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
+                                            aria-expanded="false"><span class="caret"></span></button>
+                                    <div class="dropdown-menu dropdown-menu-right" role="menu">
+                                        <form class="form-horizontal" role="form" id="aptinfo-form-search">
+                                            <div class="form-group" >
+                                                <label for="filter">Filter by</label>
+                                                <select class="form-control">
+                                                    <option value="0" selected>All Snippets</option>
+                                                    <option value="1">Featured</option>
+                                                    <option value="2">Most popular</option>
+                                                    <option value="3">Top rated</option>
+                                                    <option value="4">Most commented</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="contain">Author</label>
+                                                <input class="form-control" type="text"/>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="contain">Contains the words</label>
+                                                <input class="form-control" type="text"/>
+                                            </div>
+                                            <button type="submit" class="btn" id="aptInfoSubmitSearchButton"><span
+                                                    class="glyphicon glyphicon-search" aria-hidden="False">검색</span></button>
+                                        </form>
+                                    </div>
+                                </div>
+                                <button type="button" class="btn btn-primary" id="aptInfoSearchButton"><span class="glyphicon glyphicon-search"
+                                                                                    aria-hidden="true">검색</span></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
