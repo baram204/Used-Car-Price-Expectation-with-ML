@@ -22,25 +22,15 @@ class SijaxHandler(object):
         obj_response.alert('Hi there!')
 
     @staticmethod
-    def search_signle(obj_response, keyword):
+    def search_signle(obj_response, keyword, columns):
+        print(columns)
         obj_response.script("$('.alert').hide();")
-        bjd_list: list = md.get_bjd_list(keyword)
-        # hp.alert(obj_response,'alert-info','법정동 목록',bjd_list)
-        if not bjd_list:
-            hp.alert(obj_response,'alert-danger','법정동이','없습니다.')
-            return
-        apt_list , bldCode_list = cr.crawl_apt_list(bjd_list)
-        # hp.alert(obj_response,'alert-info','아파트 목록',apt_list)
-        if not apt_list:
-            hp.alert(obj_response,'alert-danger',bjd_list+'법정동에','아파트가 없습니다.')
-            return
-        # if apt was there, should be apt info.
-        # apt_list = apt_list[:1]
-        # bjdCode_list = bldCode_list[:1]
-        aptinfo_list_df = cr.crawl_apt_info(apt_list, bldCode_list)
-        # hp.alert(obj_response,'alert-info','아파트 정보',rows)
+        aptinfo_list_df = md.get_apt_info_df(keyword, columns)
+        # if not aptinfo_list_df.to_dict():
+        #     hp.alert(obj_response,'alert-danger','법정동이','없습니다.')
+        #     return
 
-        md.insert_all_rows(aptinfo_list_df)
+        print(aptinfo_list_df)
 
         # http://www.datasciencemadesimple.com/get-list-column-headers-column-name-python-pandas/
         header = list(aptinfo_list_df)
@@ -51,9 +41,13 @@ class SijaxHandler(object):
         obj_response.html('#dataTable',table)
         datatable = """
         // Call the dataTables jQuery plugin
-            $('head').append('<script src="/static/vendor/tablesaw/tablesaw.js"></script>');
-            Tablesaw.init();
-            $('#dataTable').tablesaw().data("tablesaw").refresh();
+        
+$('.table-responsive').responsiveTable();
+        (function ($, window) {
+
+        new TableExport($('table'), {formats: ['xlsx'], fileName: "contact-list", bootstrap: true})
+
+    }).call(this, jQuery, window);
         
         """
         obj_response.script(datatable)

@@ -7,6 +7,69 @@
                 <div class="col-xl-12 col-sm-12 col-lg-12 mb-3">
                     <div class="input-group" id="adv-search">
                         <input type="text" class="form-control" name="apt-info-search-keyword" placeholder="지역 검색"/>
+                        <select class="form-control aptinfo-columns" name="apt-info-search-columns" multiple="multiple">
+                                <option value="법정동코드">법정동코드</option>
+                                <option value="아파트코드">아파트코드</option>
+                                <option value="아파트이름" selected>아파트이름</option>
+                                <option value="마을코드">마을코드</option>
+                                <option value="법정동주소" selected>법정동주소</option>
+                                <option value="도로명주소">도로명주소</option>
+                                <option value="단지분류">단지분류</option>
+                                <option value="동수" selected>동수</option>
+                                <option value="세대수" selected>세대수</option>
+                                <option value="전용면적60이하아파트코드">전용면적60이하아파트코드</option>
+                                <option value="전용면적60이하세대수">전용면적60이하세대수</option>
+                                <option value="전용면적60이상85이하아파트코드">전용면적60이상85이하아파트코드</option>
+                                <option value="전용면적60이상85이하세대수">전용면적60이상85이하세대수</option>
+                                <option value="전용면적85이상135이하아파트코드">전용면적85이상135이하아파트코드</option>
+                                <option value="전용면적85이상135이하세대수">전용면적85이상135이하세대수</option>
+                                <option value="전용면적135초과아파트코드">전용면적135초과아파트코드</option>
+                                <option value="전용면적135초과세대수">전용면적135초과세대수</option>
+                                <option value="분양형태">분양형태</option>
+                                <option value="난방방식">난방방식</option>
+                                <option value="복도유형">복도유형</option>
+                                <option value="연면적">연면적</option>
+                                <option value="시공사">시공사</option>
+                                <option value="시행사">시행사</option>
+                                <option value="관리사무소연락처" selected>관리사무소연락처</option>
+                                <option value="관리사무소팩스">관리사무소팩스</option>
+                                <option value="홈페이지주소">홈페이지주소</option>
+                                <option value="일반관리방식">일반관리방식</option>
+                                <option value="일반관리인원">일반관리인원</option>
+                                <option value="일반관리계약업체">일반관리계약업체</option>
+                                <option value="경비관리방식">경비관리방식</option>
+                                <option value="경비관리인원">경비관리인원</option>
+                                <option value="경비관리계약업체">경비관리계약업체</option>
+                                <option value="청소관리방식">청소관리방식</option>
+                                <option value="청소관리인원">청소관리인원</option>
+                                <option value="음식물처리방법">음식물처리방법</option>
+                                <option value="소독관리방식">소독관리방식</option>
+                                <option value="연간소독횟수">연간소독횟수</option>
+                                <option value="소독방법">소독방법</option>
+                                <option value="승강기관리형태">승강기관리형태</option>
+                                <option value="승객용승강기">승객용승강기</option>
+                                <option value="화물용승강기">화물용승강기</option>
+                                <option value="비상승강기">비상승강기</option>
+                                <option value="주차관제홈네트워크">주차관제홈네트워크</option>
+                                <option value="건물구조">건물구조</option>
+                                <option value="세대전기계약방식">세대전기계약방식</option>
+                                <option value="화재수신반방식">화재수신반방식</option>
+                                <option value="지상주차장대수">지상주차장대수</option>
+                                <option value="지하주차장대수">지하주차장대수</option>
+                                <option value="cctv대수">cctv대수</option>
+                                <option value="부대복리시설">부대복리시설</option>
+                                <option value="수전용량">수전용량</option>
+                                <option value="전기안전관리자법정선임여부">전기안전관리자법정선임여부</option>
+                                <option value="급수방식">급수방식</option>
+                                <option value="버스정류장">버스정류장</option>
+                                <option value="편의시설">편의시설</option>
+                                <option value="교육시설">교육시설</option>
+                                <option value="사용승인일" selected>사용승인일</option>
+                                <option value="주거전용면적">주거전용면적</option>
+                                <option value="인근지하철역">인근지하철역</option>
+                                <option value="인근지하철호선">인근지하철호선</option>
+                                <option value="지하철까지시간">지하철까지시간</option>
+                        </select>
                         <div class="input-group-btn ">
                             <div class="btn-group" role="group">
                                 <div class="dropdown dropdown-lg">
@@ -15,8 +78,8 @@
                                     <div class="dropdown-menu dropdown-menu-right" role="menu">
                                         <form class="form-horizontal" role="form" id="aptinfo-form-search">
                                             <div class="form-group" >
-                                                <label for="filter">Filter by</label>
-                                                <select class="form-control">
+                                                <label for="filter">열 선택</label>
+                                                <select class="form-control aptinfo-columns" multiple="multiple">
                                                     <option value="0" selected>All Snippets</option>
                                                     <option value="1">Featured</option>
                                                     <option value="2">Most popular</option>

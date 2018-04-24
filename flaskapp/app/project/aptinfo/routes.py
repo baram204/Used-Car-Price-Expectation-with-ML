@@ -34,6 +34,7 @@ def createtable():
 @aptinfo_blueprint.route('/crawldata/' )
 def crawldata():
 
+    # todo supppy city select ui, global?? uhm.. too much. It's used only here.
     city = ['서울특별시',
     '부산광역시',
     '대구광역시',

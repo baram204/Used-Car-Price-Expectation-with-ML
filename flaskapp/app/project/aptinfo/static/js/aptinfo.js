@@ -14,8 +14,10 @@
     $("#aptInfoSearchButton").click(function (e) {
         e.preventDefault();
         // alert('단일 키워드 검색');
-        var value = $( "input[name=apt-info-search-keyword]" ).val();
-        console.log(value);
-        Sijax.request('search_signle', [value]);
+        var keyword = $( "input[name=apt-info-search-keyword]" ).val();
+        var columns = $( "select[name=apt-info-search-columns]" ).val();
+        console.log(keyword);
+        console.log(columns);
+        Sijax.request('search_signle', [keyword,columns]);
     });
 })(jQuery); // End of use strict

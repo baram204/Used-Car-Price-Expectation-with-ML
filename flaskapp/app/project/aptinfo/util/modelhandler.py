@@ -129,22 +129,54 @@ class ModelHandler():
             print(e.args)
             return '<h1>Something is broken.</h1>' + str(e.args)
 
-    def get_bjd_list(self, keyword):
+    def get_apt_info_df(self, keyword, columns):
+
         try:
+            # http://www.leeladharan.com/sqlalchemy-query-with-or-and-like-common-filters
+            from sqlalchemy import or_
 
-            bjdqr : list[BjdInfo] = db.session.query(BjdInfo.법정동코드).filter(
-                BjdInfo.법정동명.like('%'+keyword+'%'))
+            # http://docs.sqlalchemy.org/en/latest/orm/loading_columns.html#load-only-cols
+            from sqlalchemy.orm import load_only
+            aptqr : list[AptInfo]
+            if not columns:
+                aptqr = db.session.query(AptInfo).filter(or_(AptInfo.법정동주소.like('%'+keyword+'%'), AptInfo.도로명주소.like('%'+keyword+'%')))
+            else:
+                aptqr = db.session.query(AptInfo).options(load_only(*columns)).filter(or_(AptInfo.법정동주소.like('%'+keyword+'%'), AptInfo.도로명주소.like('%'+keyword+'%')))
 
-            bjd_list: list = pd.read_sql(bjdqr.statement, bjdqr.session.bind)['법정동코드'].tolist()
+            aptinfo_list_df = pd.read_sql(aptqr.statement, aptqr.session.bind).drop(columns=['index'])
 
-            bjdqr2 : list[BjdInfo] = db.session.query(BjdInfo.법정동코드).filter(
-                BjdInfo.법정동명.like('%'+keyword+'%')).all()
 
-            bjd_list2:list =[tp[0] for tp in bjdqr2]
+            # 으어!!!!!! It takes 3 hours to find out!! Fuck!!!
+            # need to now pandas from basic!!!
+            # split is very very useful I think!!
+            # https://stackoverflow.com/questions/14745022/how-to-split-a-column-into-two-columns
+            # I want to try expand option.. but can't set it's columns name!
+            z = aptinfo_list_df['사용승인일'].str.split('-').str[0].apply(func=lambda x: str(2018-int(x)))
 
-            return bjd_list
+            def extyear(series):
+                return series['사용승인일'].str.split('-').str[0].apply(func=lambda x: str(2018-int(x)))
+
+            # https://stackoverflow.com/a/49278320/5443084
+            from datetime import datetime
+            n = datetime.now()
+
+            order = ["연번","아파트이름",	"법정동주소","연차","동수",	"세대수",	"관리사무소연락처",	"일차",	"요일",	"금액",	"문어발",	"장수",	"비고"]
+
+            # reset index!! wow
+            y = aptinfo_list_df \
+                .reset_index(drop=True) \
+                .assign(연차=lambda x: extyear(x),일차='',요일='',금액='',문어발='',장수='',비고='')\
+                .drop(columns=['사용승인일']) \
+                .reindex(columns=order)
+
+            # add index to new colums
+            # https://stackoverflow.com/a/20461206/5443084
+            y['연번'] = y.index \
+
+
+            return y
         except Exception as e:
-            print('데이터 가져오기 오류')
+            print('아파트 정보 가져오기 오류')
             print(e.args)
             return '<h1>Something is broken.</h1>' + str(e.args)
 

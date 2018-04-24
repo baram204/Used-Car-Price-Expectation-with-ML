@@ -15,8 +15,11 @@
     <link href="{{ url_for('static', filename='vendor/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet"
           type="text/css">
     <!-- Page level plugin CSS-->
-    <link href="{{ url_for('static', filename='vendor/tablesaw/tablesaw.css') }}" rel="stylesheet">
+{#    <link href="{{ url_for('static', filename='vendor/tablesaw/tablesaw.css') }}" rel="stylesheet">#}
 {#    <link href="{{ url_for('static', filename='vendor/datatables/dataTables.bootstrap4.css') }}" rel="stylesheet">#}
+    <link href="{{ url_for('static', filename='vendor/rwdtable/dist/css/rwd-table.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='vendor/bsmultiselect/bootstrap-multiselect.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='vendor/tableexport/te.css') }}" rel="stylesheet">
     <!-- for blueprint mocdule CSS-->
     {% block head_css %}{% endblock %}
     <!-- Custom styles for this template-->
@@ -280,7 +283,9 @@
             </div>
         </div>
         <!-- Example DataTables Card-->
+        <div>
         {% block datatable %}{% endblock %}
+        </div>
     </div>
     <!-- /.container-fluid-->
     <!-- /.content-wrapper-->
@@ -300,18 +305,17 @@
     {% endblock %}
     <!-- Bootstrap core JavaScript-->
     <script src={{ url_for('static', filename='vendor/jquery/jquery.min.js') }}></script>
-    <script src={{ url_for('static', filename='vendor/jquery/jquery-1.7.min.js') }}></script>
-    <script type="text/javascript">
-        var jQ17 = $.noConflict(true);
-    </script>
     <script src={{ url_for('static', filename='vendor/bootstrap/js/bootstrap.bundle.min.js') }}></script>
     <!-- Core plugin JavaScript-->
     <script src={{ url_for('static', filename='vendor/jquery-easing/jquery.easing.min.js') }}></script>
     <!-- Page level plugin JavaScript-->
     <script src={{ url_for('static', filename='vendor/chart.js/Chart.min.js') }}></script>
-    <script src={{ url_for('static', filename='vendor/tablesaw/tablesaw.jquery.js') }}></script>
+{#    <script src={{ url_for('static', filename='vendor/tablesaw/tablesaw.jquery.js') }}></script>#}
 {#    <script src={{ url_for('static', filename='vendor/datatables/jquery.dataTables.js') }}></script>#}
 {#    <script src={{ url_for('static', filename='vendor/datatables/dataTables.bootstrap4.js') }}></script>#}
+    <script src={{ url_for('static', filename='vendor/rwdtable/dist/js/rwd-table.js') }}></script>
+    <script src={{ url_for('static', filename='vendor/bsmultiselect/bootstrap-multiselect.js') }}></script>
+    <script src={{ url_for('static', filename='vendor/tableexport/te.js') }}></script>
     <!-- Flask Sijax only working inside jinja2 template-->
     <script type="text/javascript" src={{ url_for('static', filename='js/sijax/sijax.js') }}></script>
     <script type="text/javascript">

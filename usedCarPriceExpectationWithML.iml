@@ -4,6 +4,9 @@
     <facet type="Python" name="Python">
       <configuration sdkName="Python 3.6 (usedCarPriceExpectationWithML)" />
     </facet>
+    <facet type="Python" name="Python">
+      <configuration sdkName="Python 3.6 (usedCarPriceExpectationWithML)" />
+    </facet>
   </component>
   <component name="NewModuleRootManager" inherit-compiler-output="true">
     <exclude-output />
