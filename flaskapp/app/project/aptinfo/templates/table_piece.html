@@ -11,11 +11,7 @@
         <tfoot>
         <tr>
             {% for colname in header %}
-                {% if loop.index <= 5  %}
                     <th>{{ colname }}</th>
-                {% else %}
-                    <th class="tablesaw-swipe-cellhidden">{{ colname }}</th>
-                {% endif %}
             {% endfor %}
         </tr>
         </tfoot>
@@ -23,7 +19,12 @@
         {% for row in rows %}
             <tr>
                 {% for cell in row %}
-                    <td>{{ cell }}</td>
+
+                    {% if loop.index == 3  %}
+                        <td>{{ ' '.join(cell.split(' ')[2:]) }}</td>
+                    {% else %}
+                        <td>{{ cell }}</td>
+                    {% endif %}
                 {% endfor %}
             </tr>
         {% endfor %}

@@ -26,9 +26,9 @@ class SijaxHandler(object):
         print(columns)
         obj_response.script("$('.alert').hide();")
         aptinfo_list_df = md.get_apt_info_df(keyword, columns)
-        # if not aptinfo_list_df.to_dict():
-        #     hp.alert(obj_response,'alert-danger','법정동이','없습니다.')
-        #     return
+        if aptinfo_list_df.empty:
+            hp.alert(obj_response,'alert-danger','법정동이','없습니다.')
+            return
 
         print(aptinfo_list_df)
 

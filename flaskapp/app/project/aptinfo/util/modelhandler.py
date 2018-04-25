@@ -160,19 +160,33 @@ class ModelHandler():
             from datetime import datetime
             n = datetime.now()
 
-            order = ["연번","아파트이름",	"법정동주소","연차","동수",	"세대수",	"관리사무소연락처",	"일차",	"요일",	"금액",	"문어발",	"장수",	"비고"]
+            order = ["연번","아파트이름",	"법정동주소","연차","동수",	"세대수", "복도유형","관리사무소연락처",	"일차",	"요일",	"금액",	"문어발",	"장수",	"비고"]
 
             # reset index!! wow
             y = aptinfo_list_df \
-                .reset_index(drop=True) \
                 .assign(연차=lambda x: extyear(x),일차='',요일='',금액='',문어발='',장수='',비고='')\
-                .drop(columns=['사용승인일']) \
+                .drop(columns=['사용승인일'])\
                 .reindex(columns=order)
+
+            # set type
+            y["연차"] = y["연차"].astype('int')
+            y["동수"] = y["동수"].astype('int')
+            y["세대수"] = y["세대수"].astype('int')
+
+            # filterling by range
+            # http://cmdlinetips.com/2018/02/how-to-subset-pandas-dataframe-based-on-values-of-a-column/
+            y = y.sort_values(by=['연차'], axis=0)
+
+            # todo supply range selection interface
+            # https://stackoverflow.com/questions/31617845/how-to-select-rows-in-a-dataframe-between-two-values-in-python-pandas
+            # y = y[(y['연차'] >= 10) & (y['연차'] <= 15)].reset_index(drop=True)
+            y = y[y['연차'] >= 16].reset_index(drop=True)
 
             # add index to new colums
             # https://stackoverflow.com/a/20461206/5443084
-            y['연번'] = y.index \
-
+            # y.reindex(columns=order)
+            y['연번'] = y.index
+            print(y)
 
             return y
         except Exception as e:
